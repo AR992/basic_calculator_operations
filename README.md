@@ -7,15 +7,15 @@ Test description: Validate that dividing two numbers works correctly on each bui
 1. Clone this repository:
 git clone https://github.com/AR992/basic_calculator_operations.git
 
-3. Install dependencies:
+2. Install dependencies:
 npm install
 
-Run tests:
+3. Run tests:
 open cypress dashbord: npm run cy:open
 run all tests: npm run allTests
 run only division tests: npm run divisionTests
 
-Optional:
+4. Optional:
 run only other operations tests: npm run otherTests
 run only validations tests for all operations: npm run validationTests
 
