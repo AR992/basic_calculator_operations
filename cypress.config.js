@@ -5,7 +5,7 @@ module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
     charts: true,
-    reportPageTitle: 'Calculator Tests',
+    reportPageTitle: 'Calculator Operations Tests',
     embeddedScreenshots: true,
     inlineAssets: true,
   },
