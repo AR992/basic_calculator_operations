@@ -1,0 +1,54 @@
+name: Run Test Cases for Basic Calculator Operations
+
+on:
+  push:
+    branches:
+      - master # Run tests on push to the master branch
+      - feature/* # Run tests on feature branches
+  pull_request:
+    branches:
+      - master # Run tests on pull requests to the master branch
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  setup-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Use Node.js version 16
+          cache: 'npm' # Cache npm modules for faster builds
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm ci # Clean install dependencies from package-lock.json
+
+      # Step 4: Run tests
+      - name: Run Tests
+        run: npm allTests # Ensure a 'allTests' script exists in package.json
+
+      # Step 5: Collect test results
+      - name: Archive Test Results
+        if: always() # This ensures test results are collected even if tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results/ # Adjust this path to your test results folder
+
+  report-status:
+    runs-on: ubuntu-latest
+    needs: setup-and-test
+    steps:
+      - name: Notify on Test Status
+        if: failure()
+        run: echo "❌ Tests failed. Please check the logs."
+      - name: Notify on Success
+        if: success()
+        run: echo "✅ All tests passed successfully."
