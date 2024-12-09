@@ -32,15 +32,16 @@ jobs:
 
       # Step 4: Run tests
       - name: Run Tests
-        run: npm allTests # Ensure a 'allTests' script exists in package.json
+        run: npm run allTests # Ensure a 'allTests' script exists in package.json
 
-      # Step 5: Collect test results
+      # Step 5: Archive Test Results
       - name: Archive Test Results
-        if: always() # This ensures test results are collected even if tests fail
+        if: always() 
         uses: actions/upload-artifact@v3
         with:
-          name: test-results
-          path: test-results/ # Adjust this path to your test results folder
+          name: cypress-test-results
+          path: cypress-project-task/reports/
+          retention-days: 30 
 
   report-status:
     runs-on: ubuntu-latest
