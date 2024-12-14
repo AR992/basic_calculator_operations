@@ -46,7 +46,7 @@ jobs:
       # Step 4: Set Default Test Script (if not provided)
       - name: Determine Test Script
         id: set-script
-        run: echo "TEST_SCRIPT=${{ github.event.inputs.test-script || 'divisionTests' }}"
+        run: echo "TEST_SCRIPT=${{ github.event.inputs.test-script || 'divisionTests' }}" >> $GITHUB_ENV
 
       # Step 5: Run tests
       - name: Run Tests
